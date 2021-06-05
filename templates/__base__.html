@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MP Tracker</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,200;0,400;0,600;1,200&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<header>
+    <section class="logo">
+        <img alt="logo" src="{% static 'images/magnifier-1787362_1280.png' %}">
+        <h1>SimplyTracker</h1>
+    </section>
+    <section class="login-menu">
+        <a href="{% url 'login' %}">Log in</a>
+        <a class="learn-more" href="#">Learn more</a>
+    </section>
+</header>
+<main>
+    <div class="main-container">
+        {% block login %}
+            <div class="column login-section">
+                <h3>Some heading</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel aliquet ligula. Cras tincidunt
+                    metus
+                    est, iaculis elementum mi egestas sit amet. Maecenas varius nec metus pellentesque pharetra. Vivamus
+                    blandit lorem ut lorem scelerisque, at laoreet ex molestie.
+                </p>
+            </div>
+        {% endblock %}
+        <div class="column">
+            <img alt="mobile phone" src="{% static 'images/mobile-phone-5151024_1920.jpg' %}">
+        </div>
+    </div>
+</main>
+<footer>
+    <p>Copyright 2021 SimplyTracker. All Rights Reserved. Brand logos for demonstration purposes only.</p>
+</footer>
+</body>
+</html>
