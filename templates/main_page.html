@@ -5,9 +5,9 @@
             <div class="card">
                 <div class="card-header" id="headingOne">
                     <h5 class="mb-0">
-                        <button class="btn btn-link">
+                        <a href="{% url 'employee_add' %}"><button class="btn btn-link">
                             Add new employee
-                        </button>
+                        </button></a>
                     </h5>
                 </div>
             </div>
@@ -39,10 +39,30 @@
                     </div>
                 </div>
             </div>
+            <div class="card">
+                <div class="card-header" id="headingFour">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour"
+                                aria-expanded="false" aria-controls="collapseFour">
+                            Settings
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                    <div class="card-body">
+                        <a href="#">Account information</a>
+                    </div>
+                    <div class="card-body">
+                        <a href="#">Password change</a>
+                    </div>
+                </div>
+            </div>
         </div>
-    <div class="central-page">
-        <h3>Welcome, {{ user }}!</h3>
-        <p>To start, choose an option from the side menu.</p>
-    </div>
+        {% block central %}
+            <div class="central-page">
+                <h3>Welcome, {{ user }}!</h3>
+                <p>To start, choose an option from the side menu.</p>
+            </div>
+        {% endblock %}
     </div>
 {% endblock %}

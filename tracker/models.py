@@ -13,8 +13,8 @@ class Employee(models.Model):
 
     first_name = models.CharField(max_length=64, null=False)
     last_name = models.CharField(max_length=64, null=False)
-    login = models.CharField(max_length=28, default=create_login)
-    email = models.EmailField(default=create_email)
+    login = models.CharField(max_length=28)
+    email = models.EmailField(max_length=28)
     birth_date = models.DateField()
     address_street = models.CharField(max_length=128, null=False)
     address_city = models.CharField(max_length=64, null=False)
