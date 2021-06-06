@@ -1,0 +1,48 @@
+{% extends '__base__.html' %}
+{% block main %}
+    <div class="main-page">
+        <div id="accordion" class="sidebar">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link">
+                            Add new employee
+                        </button>
+                    </h5>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                                aria-expanded="false" aria-controls="collapseTwo">
+                            Search & Filter
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body">
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                                aria-expanded="false" aria-controls="collapseThree">
+                            Reports
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                    <div class="card-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="central-page">
+        <h3>Welcome, {{ user }}!</h3>
+        <p>To start, choose an option from the side menu.</p>
+    </div>
+    </div>
+{% endblock %}
