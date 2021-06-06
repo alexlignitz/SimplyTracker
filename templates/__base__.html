@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>MP Tracker</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,200;0,400;0,600;1,200&display=swap"
           rel="stylesheet">
@@ -16,29 +18,47 @@
         <h1><a href="/">SimplyTracker</a></h1>
     </section>
     <section class="login-menu">
-        <a class="btn" href="{% url 'login' %}">Log in</a>
-        <a class="btn learn-more" href="#">Learn more</a>
+        {% if user.is_authenticated %}
+            <a class="btn learn-more" href="{% url 'main' %}">Home</a>
+            <a class="btn" href="{% url 'logout' %}">Log out</a>
+        {% else %}
+            <a class="btn learn-more" href="#">Learn more</a>
+            <a class="btn" href="{% url 'login' %}">Log in</a>
+        {% endif %}
+
     </section>
 </header>
-<main>
-    <div class="main-container">
-        {% block login %}
-            <div class="column login-section">
-                <h3>Some heading</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel aliquet ligula. Cras tincidunt
-                    metus
-                    est, iaculis elementum mi egestas sit amet. Maecenas varius nec metus pellentesque pharetra. Vivamus
-                    blandit lorem ut lorem scelerisque, at laoreet ex molestie.
-                </p>
+{% block main %}
+    <main>
+        <div class="main-container">
+            {% block login %}
+                <div class="column login-section">
+                    <h3>Some heading</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel aliquet ligula. Cras tincidunt
+                        metus
+                        est, iaculis elementum mi egestas sit amet. Maecenas varius nec metus pellentesque pharetra.
+                        Vivamus
+                        blandit lorem ut lorem scelerisque, at laoreet ex molestie.
+                    </p>
+                </div>
+            {% endblock %}
+            <div class="column">
+                <img alt="mobile phone" src="{% static 'images/mobile-phone-5151024_1920.jpg' %}">
             </div>
-        {% endblock %}
-        <div class="column">
-            <img alt="mobile phone" src="{% static 'images/mobile-phone-5151024_1920.jpg' %}">
         </div>
-    </div>
-</main>
+    </main>
+{% endblock %}
 <footer>
     <p>Copyright 2021 SimplyTracker. All Rights Reserved. Brand logos for demonstration purposes only.</p>
 </footer>
 </body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </html>
