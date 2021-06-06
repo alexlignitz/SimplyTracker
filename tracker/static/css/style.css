@@ -28,15 +28,17 @@ section.logo img {
     height: 6vh;
 }
 
-section.logo h1 {
+section.logo h1 a {
     font-size: 3.5rem;
+    text-decoration: none;
+    color: black;
 }
 
 section.login-menu {
     margin-right: 17vw;
 }
 
-header a {
+header a.btn {
     display: inline-block;
     height: 2vh;
     padding: 10px 20px;
@@ -49,7 +51,7 @@ header a {
     text-transform: uppercase;
 }
 
-header a:hover {
+header a.btn:hover {
     background-color: white;
     border: black solid 2px;
     color: black;
