@@ -11,11 +11,6 @@ class IndexView(View):
         return render(request, '__base__.html')
 
 
-<<<<<<< HEAD
-class MainPageView(View):
-    def get(self, request):
-        return render(request, 'main_page.html')
-=======
 class MainPageView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'main_page.html')
@@ -52,4 +47,3 @@ class EmployeeEditView(LoginRequiredMixin, View):
 
 class EmployeeDeleteView(LoginRequiredMixin, View):
     pass
->>>>>>> origin/master
