@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.shortcuts import render
 from django.views import View
 
-from tracker.forms import AddEmployeeForm
+from tracker.forms import AddEmployeeForm, AddContractForm
 from tracker.models import Employee
 
 
@@ -13,11 +13,11 @@ class IndexView(View):
 
 class MainPageView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'main_page.html')
+        employees = Employee.objects.all()
+        return render(request, 'main_page.html', {'employees': employees})
 
 
-class EmployeeListView(LoginRequiredMixin, View):
-    pass
+
 
 
 class EmployeeDetailView(LoginRequiredMixin, View):
@@ -47,3 +47,19 @@ class EmployeeEditView(LoginRequiredMixin, View):
 
 class EmployeeDeleteView(LoginRequiredMixin, View):
     pass
+
+
+class ContractAddView(View):
+    def get(self, request, id):
+        form = AddContractForm(initial={'employee': id})
+        return render(request, 'form.html', {'form': form, 'header': 'Add contract'})
+
+    def post(self, request, id):
+        employee = Employee.objects.get(pk=id)
+        form = AddContractForm(request.POST)
+        if form.is_valid():
+            contract = form.save(commit=False)
+            contract.employee = employee
+            contract.save()
+            return render(request, 'add_confirmation.html', {'object': 'contract'})
+

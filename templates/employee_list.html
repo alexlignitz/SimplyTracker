@@ -1,0 +1,24 @@
+<div class="empl-list">
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>LOGIN</th>
+            <th>FIRST NAME</th>
+            <th>LAST NAME</th>
+            <th colspan="2">MANAGE EMPLOYEE</th>
+            <th colspan="2">MANAGE CONTRACTS</th>
+        </tr>
+        {% for employee in employees %}
+            <tr>
+                <td>{{ employee.id }}</td>
+                <td>{{ employee.login }}</td>
+                <td>{{ employee.first_name }}</td>
+                <td>{{ employee.last_name }}</td>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td><a href="{% url 'contract_add' employee.id %} ">Add contract</a></td>
+                <td><a href="#">Edit contract</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>

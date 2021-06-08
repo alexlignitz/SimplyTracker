@@ -21,6 +21,9 @@ class Employee(models.Model):
     address_postal = models.CharField(max_length=12)
     is_active = models.BooleanField(default=True)
 
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
 
 class Location(models.Model):
     city = models.CharField(max_length=64, null=False)
@@ -73,8 +76,8 @@ class Contract(models.Model):
     # # DELETE STUFF
     # except ProtectedError:
     # # CUSTOM MESSAGE
-    hire_date = models.DateField()
-    termination_date = models.DateField(default=None)
+    start_date = models.DateField()
+    end_date = models.DateField(default=None)
     contract_type = models.CharField(max_length=28, choices=ContractType.choices)
     working_hours = models.DecimalField(decimal_places=2, max_digits=4)
 

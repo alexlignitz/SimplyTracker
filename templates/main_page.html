@@ -2,18 +2,30 @@
 {% block main %}
     <div class="main-page">
         <div id="accordion" class="sidebar">
+            <div class="card-header">
+                <h3>User: {{ user }}</h3>
+            </div>
             <div class="card">
                 <div class="card-header" id="headingOne">
                     <h5 class="mb-0">
-                        <button class="btn btn-link">
-                            Add new employee
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne"
+                                aria-expanded="false" aria-controls="collapseOne">
+                            Administrative
                         </button>
-                        <a href="{% url 'employee_add' %}">
-                            <button class="btn btn-link">
-                                Add new employee
-                            </button>
-                        </a>
                     </h5>
+                </div>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="card-body">
+                            <a href="#">Create new employee</a>
+                        </div>
+                        <div class="card-body">
+                            <a href="#">Create new location</a>
+                        </div>
+                        <div class="card-body">
+                            <a href="#">Create new position</a>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="card">
@@ -60,20 +72,17 @@
                         <a href="#">Account information</a>
                     </div>
                     <div class="card-body">
-                        <a href="#">Password change</a>
+                        <a href="{% url 'password_change' %}">Password change</a>
                     </div>
                 </div>
             </div>
         </div>
-        {% block central %}
-            <div class="central_page">
-                <h3>Welcome, {{ user }}!</h3>
-                <p>Choose an option on the side menu.</p>
+        <div class="central_page">
+            <div class="central-container">
+                {% block central %}
+                    {% include 'employee_list.html' %}
+                {% endblock %}
             </div>
-            </div>
-        {% endblock %}
-    <div class="central-page">
-        <h3>Welcome, {{ user }}!</h3>
-        <p>To start, choose an option from the side menu.</p>
+        </div>
     </div>
 {% endblock %}

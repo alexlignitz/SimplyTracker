@@ -109,11 +109,29 @@ div.column h3 {
     font-size: 4rem;
 }
 
+.login-form {
+    width: 30vw;
+    margin: auto 3vh;
+    color: white;
+}
+
+.login-form h2 {
+    font-size: 3rem;
+}
+
+.login-form p {
+    font-size: 1.5rem;
+}
+
+.login-form input {
+    margin: 10px;
+}
+
 /* ----- MAIN PAGE ----- */
 
 div.main_page {
-    display: flex;
     height: 88vh;
+    position: relative;
 }
 
 div.sidebar {
@@ -121,19 +139,64 @@ div.sidebar {
     height: 100%;
     background-color: darkslateblue;
     color: white;
+    position: fixed;
+    top: 8vh;
+    left: 0;
+}
+
+.sidebar button {
+    font-size: 1.7rem;
+    text-transform: uppercase;
+    color: darkslateblue;
+}
+
+.card-body {
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    color: darkslateblue;
 }
 
 div.central_page {
+    position: relative;
+    float: right;
     height: 100%;
     width: 83vw;
     background-color: #6F9BE3;
+}
+
+div.central-container {
+    margin: 2vh 2vw;
+}
+
+.central-container h3 {
+    font-size: 3rem;
+}
+
+.central-container p, input, ul {
+    font-size: 1.5rem;
+}
+
+.empl-list table {
+    background-color: white;
+}
+
+.empl-list th {
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+div.empl-list td {
+    font-size: 1.5rem;
+    padding: 10px;
+    border: 1px solid black;
 }
 
 /* ----- FOOTER ----- */
 
 div.main-page {
     height: 88vh;
-    display: flex;
     background-color: #6F9BE3;
 }
 
@@ -146,6 +209,7 @@ div.sidebar {
 div.central-page {
     height: 100%;
     width: 83vw;
+    margin-left: 17vw;
 }
 
 /* ----- FOOTER ----- */
