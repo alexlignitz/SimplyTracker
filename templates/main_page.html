@@ -1,13 +1,23 @@
 {% extends '__base__.html' %}
 {% block main %}
+<<<<<<< HEAD
     <div class="main_page">
+=======
+    <div class="main-page">
+>>>>>>> origin/master
         <div id="accordion" class="sidebar">
             <div class="card">
                 <div class="card-header" id="headingOne">
                     <h5 class="mb-0">
+<<<<<<< HEAD
                         <button class="btn btn-link">
                             Add new employee
                         </button>
+=======
+                        <a href="{% url 'employee_add' %}"><button class="btn btn-link">
+                            Add new employee
+                        </button></a>
+>>>>>>> origin/master
                     </h5>
                 </div>
             </div>
@@ -22,7 +32,10 @@
                 </div>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                     <div class="card-body">
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
                     </div>
                 </div>
             </div>
@@ -37,16 +50,46 @@
                 </div>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                     <div class="card-body">
+<<<<<<< HEAD
 
+=======
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingFour">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour"
+                                aria-expanded="false" aria-controls="collapseFour">
+                            Settings
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                    <div class="card-body">
+                        <a href="#">Account information</a>
+                    </div>
+                    <div class="card-body">
+                        <a href="#">Password change</a>
+>>>>>>> origin/master
                     </div>
                 </div>
             </div>
         </div>
         {% block central %}
+<<<<<<< HEAD
             <div class="central_page">
                 <h3>Welcome, {{ user }}!</h3>
                 <p>Choose an option on the side menu.</p>
             </div>
             </div>
         {% endblock %}
+=======
+            <div class="central-page">
+                <h3>Welcome, {{ user }}!</h3>
+                <p>To start, choose an option from the side menu.</p>
+            </div>
+        {% endblock %}
+    </div>
+>>>>>>> origin/master
 {% endblock %}
