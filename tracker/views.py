@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.shortcuts import render
 from django.views import View
 
-from tracker.forms import AddEmployeeForm, AddContractForm
+from tracker.forms import AddEmployeeForm, AddContractForm, AddLocationForm
 from tracker.models import Employee
 
 
@@ -15,9 +15,6 @@ class MainPageView(LoginRequiredMixin, View):
     def get(self, request):
         employees = Employee.objects.all()
         return render(request, 'main_page.html', {'employees': employees})
-
-
-
 
 
 class EmployeeDetailView(LoginRequiredMixin, View):
@@ -63,3 +60,15 @@ class ContractAddView(View):
             contract.save()
             return render(request, 'add_confirmation.html', {'object': 'contract'})
 
+
+class LocationAddView(View):
+    def get(self, request):
+        form = AddLocationForm
+        return render(request, 'form.html', {'form': form, 'header': 'Add location'})
+
+    def post(self, request):
+        form = AddLocationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'add_confirmation.html', {'object': 'location'})
+        return render(request, 'form.html', {'form': form, 'header': 'Add location'})

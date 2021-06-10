@@ -1,3 +1,6 @@
+import random
+import string
+
 from django.db import models
 
 from django.db import models
@@ -6,7 +9,13 @@ from django.db import models
 class Employee(models.Model):
     def create_login(self):
         login_letters = [self.first_name[0:3].lower(), self.last_name[0:3].lower()]
-        return "".join(login_letters)
+        login = "".join(login_letters)
+        if Employee.objects.filter(login=login).exists():
+            random_letter = random.choice(string.ascii_lowercase)
+            login_letters = [self.first_name[0:2].lower(), random_letter, self.last_name[0:3].lower()]
+            login = "".join(login_letters)
+            return login
+        return login
 
     def create_email(self):
         return f"{self.login}@mp.com"

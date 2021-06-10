@@ -1,7 +1,8 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.forms import DateInput
 
-from tracker.models import Employee, Contract
+from tracker.models import Employee, Contract, Location
 
 
 class AddEmployeeForm(forms.ModelForm):
@@ -23,3 +24,18 @@ class AddContractForm(forms.ModelForm):
             'start_date': DateInput,
             'end_date': DateInput
         }
+
+
+class AddLocationForm(forms.ModelForm):
+    class Meta:
+        model = Location
+        fields = '__all__'
+
+    def clean(self):
+        data = super().clean()
+        building_id = data['building_id']
+
+        if Location.objects.filter(building_id=building_id).exists():
+            raise ValidationError('Location already exists')
+        else:
+            return data
