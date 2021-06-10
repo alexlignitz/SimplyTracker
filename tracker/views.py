@@ -1,9 +1,11 @@
+from datetime import datetime
+
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render
 from django.views import View
 
-from tracker.forms import AddEmployeeForm, AddContractForm, AddLocationForm
-from tracker.models import Employee
+from tracker.forms import AddEmployeeForm, AddContractForm, AddLocationForm, AddPositionForm
+from tracker.models import Employee, Contract
 
 
 class IndexView(View):
@@ -12,9 +14,16 @@ class IndexView(View):
 
 
 class MainPageView(LoginRequiredMixin, View):
+    def get_current_contracts(self):
+        employees = Employee.objects.all()
+        today = datetime.now().date()
+        contracts = Contract.objects.filter(end_date__gte=today)
+        ctr = contracts.order_by('employee', 'start_date').distinct('employee')
+
     def get(self, request):
         employees = Employee.objects.all()
-        return render(request, 'main_page.html', {'employees': employees})
+        contracts = self.get_current_contracts
+        return render(request, 'main_page.html', {'employees': employees, 'contracts': contracts})
 
 
 class EmployeeDetailView(LoginRequiredMixin, View):
@@ -59,6 +68,7 @@ class ContractAddView(View):
             contract.employee = employee
             contract.save()
             return render(request, 'add_confirmation.html', {'object': 'contract'})
+        return render(request, 'form.html', {'form': form, 'header': 'Add contract'})
 
 
 class LocationAddView(View):
@@ -72,3 +82,16 @@ class LocationAddView(View):
             form.save()
             return render(request, 'add_confirmation.html', {'object': 'location'})
         return render(request, 'form.html', {'form': form, 'header': 'Add location'})
+
+
+class PositionAddView(View):
+    def get(self, request):
+        form = AddPositionForm
+        return render(request, 'form.html', {'form': form, 'header': 'Add position'})
+
+    def post(self, request):
+        form = AddPositionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'add_confirmation.html', {'object': 'position'})
+        return render(request, 'form.html', {'form': form, 'header': 'Add position'})

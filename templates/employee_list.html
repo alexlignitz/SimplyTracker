@@ -5,6 +5,11 @@
             <th>LOGIN</th>
             <th>FIRST NAME</th>
             <th>LAST NAME</th>
+            <th>CONTRACT TYPE</th>
+            <th>START DATE</th>
+            <th>END DATE</th>
+            <th>LEVEL</th>
+            <th>JOB TITLE</th>
             <th colspan="2">MANAGE EMPLOYEE</th>
             <th colspan="2">MANAGE CONTRACTS</th>
         </tr>
@@ -14,6 +19,21 @@
                 <td>{{ employee.login }}</td>
                 <td>{{ employee.first_name }}</td>
                 <td>{{ employee.last_name }}</td>
+                {% for contract in contracts %}
+                    {% if contract.employee_id == employee.id %}
+                        <td>{{ contract.contract_type }}</td>
+                        <td>{{ contract.start_date }}</td>
+                        <td>{{ contract.end_date }}</td>
+                        <td>{{ contract.position.level }}</td>
+                        <td>{{ contract.position.job_title }}</td>
+                    {% else %}
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                    {% endif %}
+                {% endfor %}
                 <td><a href="#">Edit</a></td>
                 <td><a href="#">Delete</a></td>
                 <td><a href="{% url 'contract_add' employee.id %} ">Add contract</a></td>

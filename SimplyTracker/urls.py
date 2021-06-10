@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from tracker.views import IndexView, MainPageView, EmployeeAddView, ContractAddView, LocationAddView
+from tracker.views import IndexView, MainPageView, EmployeeAddView, ContractAddView, LocationAddView, PositionAddView
 
 urlpatterns = [
     #     GENERAL
@@ -17,4 +17,5 @@ urlpatterns = [
 
     #     COMPANY MANAGEMENT
     path('location_add/', LocationAddView.as_view(), name="location_add"),
+    path('position_add/', PositionAddView.as_view(), name="position_add"),
 ]

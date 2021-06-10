@@ -1,6 +1,7 @@
 import random
 import string
 
+from django.core.exceptions import ValidationError
 from django.db import models
 
 from django.db import models
@@ -38,44 +39,46 @@ class Location(models.Model):
     city = models.CharField(max_length=64, null=False)
     building_id = models.CharField(max_length=28, null=False)
 
+    def __str__(self):
+        return f'{self.building_id} ({self.city})'
+
 
 class Position(models.Model):
-    class Levels(models.IntegerChoices):
-        APPRENTICE = 1
-        INTERN = 2,
-        ASSOCIATE = 3
-        SPECIALIST = 4
-        TEAM_LEADER = 5
-        MANAGER = 6
-        DIRECTOR = 7
+    APPRENTICE = 1
+    INTERN = 2
+    ASSOCIATE = 3
+    SPECIALIST = 4
+    TEAM_LEADER = 5
+    MANAGER = 6
+    DIRECTOR = 7
+    LEVEL_CHOICES = [
+        (APPRENTICE, 'Apprentice'),
+        (INTERN, 'Intern'),
+        (ASSOCIATE, 'Associate'),
+        (SPECIALIST, 'Specialist'),
+        (TEAM_LEADER, 'Team Leader'),
+        (MANAGER, 'Manager'),
+        (DIRECTOR, 'Director')
+    ]
 
-    # .label to get enum member name
+    level = models.IntegerField(choices=LEVEL_CHOICES)
+    job_title = models.CharField(max_length=64)
 
-    level = models.IntegerField(choices=Levels.choices)
-    annual_salary = models.DecimalField(decimal_places=2, max_digits=12)
-
-    def salary_validation(self):
-        if self.level == 1:
-            pass
-        elif self.level == 2:
-            pass
-        elif self.level == 3:
-            pass
-        elif self.level == 4:
-            pass
-        elif self.level == 5:
-            pass
-        else:
-            pass
+    def __str__(self):
+        return f'(L{self.level}) {self.job_title}'
 
 
 class Contract(models.Model):
-
-    class ContractType(models.TextChoices):
-        UNLIMITED = 'UNL'
-        LIMITED = 'LTD'
-        INTERNSHIP = 'INT'
-        APPRENTICESHIP = 'APR'
+    UNLIMITED = 'UNL'
+    LIMITED = 'LTD'
+    INTERNSHIP = 'INT'
+    APPRENTICESHIP = 'APR'
+    CONTRACT_TYPES = [
+        (UNLIMITED, 'Unlimited'),
+        (LIMITED, 'Limited'),
+        (INTERNSHIP, 'Internship'),
+        (APPRENTICESHIP, 'Apprenticeship')
+    ]
 
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     location = models.ForeignKey(Location, on_delete=models.PROTECT)
@@ -86,9 +89,10 @@ class Contract(models.Model):
     # except ProtectedError:
     # # CUSTOM MESSAGE
     start_date = models.DateField()
-    end_date = models.DateField(default=None)
-    contract_type = models.CharField(max_length=28, choices=ContractType.choices)
+    end_date = models.DateField(default=None, null=True, blank=True)
+    contract_type = models.CharField(max_length=28, choices=CONTRACT_TYPES, null=False)
     working_hours = models.DecimalField(decimal_places=2, max_digits=4)
+    annual_salary = models.DecimalField(decimal_places=2, max_digits=12)
 
 
 class LeaveOfAbsence(models.Model):
