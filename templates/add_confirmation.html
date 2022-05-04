@@ -1,7 +1,7 @@
 {% extends 'main_page.html' %}
 {% load static %}
 {% block central %}
-    New {{ object }} has been successfully created!
+    <p>New {{ object }} has been successfully created!</p>
 
-    <a href="{% url 'main' %}">Back</a>
+    <p><a href="{% url 'employee_list' %}">Back</a></p>
 {% endblock %}

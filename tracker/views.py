@@ -1,4 +1,5 @@
 from datetime import datetime
+from django.db.models import Q
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render
@@ -17,8 +18,8 @@ class AllEmployeesView(View):
     def get_current_contracts(self):
         # employees = Employee.objects.all()
         today = datetime.now().date()
-        contracts = Contract.objects.filter(end_date__gte=today)
-        ctr = contracts.order_by('employee', 'start_date').distinct('employee')
+        contracts = Contract.objects.filter(Q(end_date__gte=today) | Q(end_date=None))
+        ctr = contracts.order_by('employee', '-start_date').distinct('employee')
         return ctr
 
     def get(self, request):
@@ -37,7 +38,8 @@ class MainPageView(LoginRequiredMixin, View):
 class EmployeeDetailView(LoginRequiredMixin, View):
     def get(self, request, id):
         employee = Employee.objects.get(id=id)
-        return render(request, 'employee_details.html', {'employee': employee})
+        contracts = Contract.objects.filter(employee_id=id)
+        return render(request, 'employee_details.html', {'employee': employee, 'contracts': contracts})
 
 
 class EmployeeAddView(LoginRequiredMixin, View):

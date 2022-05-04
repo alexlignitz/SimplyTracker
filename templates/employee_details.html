@@ -5,4 +5,25 @@
 
     <h3>{{ employee.first_name }} {{ employee.last_name }}</h3>
 
+
+        <table>
+            <tr>
+                <th>Start date</th>
+                <th>End date</th>
+                <th>Contract type</th>
+                <th>Job title</th>
+            </tr>
+            {% for contract in contracts %}
+                <tr>
+                    <td>{{ contract.start_date }}</td>
+                    <td>{{ contract.end_date }}</td>
+                    <td>{{ contract.contract_type }}</td>
+                    <td>{{ contract.position.job_title }}</td>
+                    <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+
+    <p><a href="{% url 'employee_list' %}">Back</a></p>
 {% endblock %}
