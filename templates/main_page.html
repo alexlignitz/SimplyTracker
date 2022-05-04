@@ -54,7 +54,7 @@
                 </div>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                     <div class="card-body">
-
+                        <a href="{% url 'employee_list' %}">All employees</a>
                     </div>
                 </div>
             </div>
@@ -80,7 +80,7 @@
         <div class="central_page">
             <div class="central-container">
                 {% block central %}
-                    {% include 'employee_list.html' %}
+                    {% include 'home.html' %}
                 {% endblock %}
             </div>
         </div>

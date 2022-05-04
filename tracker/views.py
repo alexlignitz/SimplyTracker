@@ -13,21 +13,31 @@ class IndexView(View):
         return render(request, '__base__.html')
 
 
-class MainPageView(LoginRequiredMixin, View):
+class AllEmployeesView(View):
     def get_current_contracts(self):
-        employees = Employee.objects.all()
+        # employees = Employee.objects.all()
         today = datetime.now().date()
         contracts = Contract.objects.filter(end_date__gte=today)
         ctr = contracts.order_by('employee', 'start_date').distinct('employee')
+        return ctr
 
     def get(self, request):
         employees = Employee.objects.all()
         contracts = self.get_current_contracts
-        return render(request, 'main_page.html', {'employees': employees, 'contracts': contracts})
+        return render(request, 'employee_list.html', {'employees': employees, 'contracts': contracts})
+
+
+class MainPageView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, 'main_page.html')
+
+    #   EMPLOYEES
 
 
 class EmployeeDetailView(LoginRequiredMixin, View):
-    pass
+    def get(self, request, id):
+        employee = Employee.objects.get(id=id)
+        return render(request, 'employee_details.html', {'employee': employee})
 
 
 class EmployeeAddView(LoginRequiredMixin, View):
@@ -54,6 +64,8 @@ class EmployeeEditView(LoginRequiredMixin, View):
 class EmployeeDeleteView(LoginRequiredMixin, View):
     pass
 
+    #   CONTRACTS
+
 
 class ContractAddView(View):
     def get(self, request, id):
@@ -70,6 +82,8 @@ class ContractAddView(View):
             return render(request, 'add_confirmation.html', {'object': 'contract'})
         return render(request, 'form.html', {'form': form, 'header': 'Add contract'})
 
+    # LOCATIONS
+
 
 class LocationAddView(View):
     def get(self, request):
@@ -82,6 +96,8 @@ class LocationAddView(View):
             form.save()
             return render(request, 'add_confirmation.html', {'object': 'location'})
         return render(request, 'form.html', {'form': form, 'header': 'Add location'})
+
+    # POSITIONS
 
 
 class PositionAddView(View):
