@@ -31,7 +31,7 @@
                         <td>{{ contract.position.job_title }}</td>
                     {% endif %}
                 {% endfor %}
-                <td><a href="#">Edit</a></td>
+                <td><a href="{% url 'employee_change' employee.id %}">Edit</a></td>
                 <td><a href="{% url 'employee_delete' employee.id %}">Delete</a></td>
                 <td><a href="{% url 'contract_add' employee.id %} ">Add contract</a></td>
                 <td><a href="#">Edit contract</a></td>

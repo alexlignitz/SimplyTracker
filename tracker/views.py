@@ -3,7 +3,9 @@ from django.db.models import Q
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views import View
+from django.views.generic import UpdateView
 
 from tracker.forms import AddEmployeeForm, AddContractForm, AddLocationForm, AddPositionForm
 from tracker.models import Employee, Contract
@@ -66,8 +68,11 @@ class EmployeeAddView(LoginRequiredMixin, View):
         return render(request, 'form.html', {'form': form, 'header': 'Add employee'})
 
 
-class EmployeeEditView(LoginRequiredMixin, View):
-    pass
+class EmployeeEditView(LoginRequiredMixin, UpdateView):
+    model = Employee
+    fields = '__all__'
+    success_url = reverse_lazy('employee_list')
+    template_name = 'form.html'
 
 
 class EmployeeDeleteView(LoginRequiredMixin, View):
