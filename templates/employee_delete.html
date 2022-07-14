@@ -1,0 +1,9 @@
+{% extends 'main_page.html' %}
+{% block central %}
+    <form method="post">
+        {% csrf_token %}
+        <h3>Delete {{ object.first_name }} {{ object.last_name}}?</h3>
+        <input class="delete" type="submit" name="answer" value="Yes">
+        <input class="delete" type="submit" name="answer" value="No">
+    </form>
+{% endblock %}

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from tracker.views import IndexView, EmployeeAddView, ContractAddView, LocationAddView, PositionAddView, \
-    AllEmployeesView, MainPageView, EmployeeDetailView
+    AllEmployeesView, MainPageView, EmployeeDetailView, EmployeeDeleteView
 
 urlpatterns = [
     #     GENERAL
@@ -14,6 +14,7 @@ urlpatterns = [
     #     EMPLOYEE MANAGEMENT
 
     path('employee_add/', EmployeeAddView.as_view(), name="employee_add"),
+    path('employee_delete/<int:id>/', EmployeeDeleteView.as_view(), name="employee_delete"),
     path('contract_add/<int:id>/', ContractAddView.as_view(), name="contract_add"),
     path('employee_details/<int:id>/', EmployeeDetailView.as_view(), name="employee_details"),
 

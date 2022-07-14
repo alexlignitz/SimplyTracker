@@ -32,7 +32,7 @@
                     {% endif %}
                 {% endfor %}
                 <td><a href="#">Edit</a></td>
-                <td><a href="#">Delete</a></td>
+                <td><a href="{% url 'employee_delete' employee.id %}">Delete</a></td>
                 <td><a href="{% url 'contract_add' employee.id %} ">Add contract</a></td>
                 <td><a href="#">Edit contract</a></td>
             </tr>

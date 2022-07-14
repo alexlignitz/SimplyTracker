@@ -17,7 +17,7 @@ class IndexView(View):
 class AllEmployeesView(View):
     def get_current_contracts(self):
         # employees = Employee.objects.all()
-        today = datetime.now().date()
+        today = datetime.now()
         contracts = Contract.objects.filter(Q(end_date__gte=today) | Q(end_date=None))
         ctr = contracts.order_by('employee', '-start_date').distinct('employee')
         return ctr
@@ -33,6 +33,13 @@ class MainPageView(LoginRequiredMixin, View):
         return render(request, 'main_page.html')
 
     #   EMPLOYEES
+
+
+def get_current_contracts():
+    today = datetime.now()
+    contracts = Contract.objects.filter(Q(end_date__gte=today) | Q(end_date=None))
+    ctr = contracts.order_by('employee', '-start_date').distinct('employee')
+    return ctr
 
 
 class EmployeeDetailView(LoginRequiredMixin, View):
@@ -54,7 +61,7 @@ class EmployeeAddView(LoginRequiredMixin, View):
             employee.login = employee.create_login()
             employee.email = employee.create_email()
             employee.save()
-            return render(request, 'employee_details.html',
+            return render(request, 'add_confirmation.html',
                           {'msg': 'Employee added to database', 'href': '/main/', 'employee': employee})
         return render(request, 'form.html', {'form': form, 'header': 'Add employee'})
 
@@ -64,7 +71,18 @@ class EmployeeEditView(LoginRequiredMixin, View):
 
 
 class EmployeeDeleteView(LoginRequiredMixin, View):
-    pass
+    def get(self, request, id):
+        employee = Employee.objects.get(id=id)
+        return render(request, 'employee_delete.html', {'object': employee})
+
+    def post(self, request, id):
+        employees = Employee.objects.all()
+        contracts = get_current_contracts
+        if request.POST.get('answer') == "Yes":
+            employee = Employee.objects.get(id=id)
+            employee.delete()
+            return render(request, 'employee_list.html', {'employees': employees, 'contracts': contracts})
+        return render(request, 'employee_list.html', {'employees': employees, 'contracts': contracts})
 
     #   CONTRACTS
 
